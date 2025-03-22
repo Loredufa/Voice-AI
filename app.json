@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "elevenlabs-conversational-ai-expo-react-native",
+    "slug": "elevenlabs-conversational-ai-expo-react-native",
+    "version": "1.0.0",
+    "scheme": "elevenlabs",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app uses the microphone to record audio."
+      },
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.elevenlabs-conversational-ai-expo-react-native"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.anonymous.elevenlabsconversationalaiexporeactnative",
+      "permissions": [
+        "RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b7b16565-2784-463a-97ec-ec4b7193df45"
+      }
+    },
+    "owner": "loredufa"
+  }
+}

@@ -16,6 +16,39 @@ async function requestMicrophonePermission() {
   return true;
 }
 
+function getFormattedDate() {
+  const date = new Date();
+  const dayNames = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+
+  const dayOfWeek = dayNames[date.getDay()];
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+
+  return {
+    formattedDate: `${day}/${month}/${year}`,
+    dayOfWeek,
+  };
+}
+
+function generateSessionId() {
+  return 'xxxxxxx-xxxx-4xxx-yxxx-xxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+let sessionId: string | null = null;
+
+function getSessionId() {
+  if (!sessionId) {
+    sessionId = generateSessionId();
+  }
+  return sessionId;
+}
+
+
 export default function ConvAiDOMComponent({
   platform,
   get_battery_level,
@@ -40,19 +73,21 @@ export default function ConvAiDOMComponent({
   });
   const startConversation = useCallback(async () => {
     try {
-      // Request microphone permission
       const hasPermission = await requestMicrophonePermission();
       if (!hasPermission) {
         alert("No permission");
         return;
       }
-      //   const signedUrl = await getSignedUrl(); TODO
-      // Start the conversation with your agent
-      console.log("calling startSession");
+  
+      const { formattedDate, dayOfWeek } = getFormattedDate();
+  
       await conversation.startSession({
-        agentId: "2pWBuFW3UXDpLF2gSTs4", // Replace with your agent ID
+        agentId: "vNm0UM4dtpKQBTwkamky",
         dynamicVariables: {
           platform,
+          fecha_actual: formattedDate,
+          dia_semana: dayOfWeek,
+          sessionId: getSessionId(), // This is the session ID
         },
         clientTools: {
           logMessage: async ({ message }) => {
@@ -67,7 +102,7 @@ export default function ConvAiDOMComponent({
       console.error("Failed to start conversation:", error);
     }
   }, [conversation]);
-
+  
   const stopConversation = useCallback(async () => {
     await conversation.endSession();
   }, [conversation]);

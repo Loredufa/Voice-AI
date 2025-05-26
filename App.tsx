@@ -8,10 +8,9 @@ import { Audio } from "expo-av";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Platform, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ChatMessage, Message } from "./components/ChatMessage";
 import ConvAiDOMComponent from "./components/ConvAI";
-import tools from "./utils/tools";
 
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -38,41 +37,31 @@ export default function App() {
   // Renderizado de la interfaz principal
   return (
     <SafeAreaView style={styles.container}>
-      // Fondo con degradado
+      // Fondo con degradado 
       <LinearGradient
         colors={["#0F172A", "#1E293B"]}
         style={StyleSheet.absoluteFill}
       />
 
-      // Contenido superior con descripcion y herramientas
+  // Contenido superior con descripcion y herramientas
       <View style={styles.topContent}>
         <Text style={styles.description}>
-          Cross-platform conversational AI agents with ElevenLabs and Expo React
+          Conversational AI agents with ElevenLabs and Expo React
           Native.
         </Text>
 
         // Lista de herramientas disponibles para el agente
         <View style={styles.toolsList}>
-          <Text style={styles.toolsTitle}>Available Client Tools:</Text>
+          <Text style={styles.toolsTitle}>Herramientas disponibles:</Text>
           <View style={styles.toolItem}>
-            <Text style={styles.toolText}>Get battery level</Text>
+            <Text style={styles.toolText}>Registrar movimientos de dinero dentro de Caja en google sheet</Text>
             <View style={styles.platformTags}>
-              <Text style={styles.platformTag}>web</Text>
-              <Text style={styles.platformTag}>ios</Text>
               <Text style={styles.platformTag}>android</Text>
             </View>
           </View>
           <View style={styles.toolItem}>
-            <Text style={styles.toolText}>Change screen brightness</Text>
+            <Text style={styles.toolText}>Gestión del calendario de google</Text>
             <View style={styles.platformTags}>
-              <Text style={styles.platformTag}>ios</Text>
-              <Text style={styles.platformTag}>android</Text>
-            </View>
-          </View>
-          <View style={styles.toolItem}>
-            <Text style={styles.toolText}>Flash screen</Text>
-            <View style={styles.platformTags}>
-              <Text style={styles.platformTag}>ios</Text>
               <Text style={styles.platformTag}>android</Text>
             </View>
           </View>
@@ -81,10 +70,10 @@ export default function App() {
 // Componente que maneja la comunicacion con el agente
           <ConvAiDOMComponent
             dom={{ style: styles.domComponent }}
-            platform={Platform.OS}
-            get_battery_level={tools.get_battery_level}
-            change_brightness={tools.change_brightness}
-            flash_screen={tools.flash_screen}
+           // platform={Platform.OS}
+           // get_battery_level={tools.get_battery_level}
+           // change_brightness={tools.change_brightness}
+            //flash_screen={tools.flash_screen}
             onMessage={message => {
               setMessages(prev => [message, ...prev]);
             }}

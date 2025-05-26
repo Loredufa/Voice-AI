@@ -56,7 +56,7 @@ function getSessionId() {
 
 
 export default function ConvAiDOMComponent({
-  platform,
+  //platform,
   //get_battery_level,
   //change_brightness,
   //flash_screen,

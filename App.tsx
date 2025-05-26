@@ -37,20 +37,20 @@ export default function App() {
   // Renderizado de la interfaz principal
   return (
     <SafeAreaView style={styles.container}>
-      // Fondo con degradado 
+        {/* Fondo con degradado */}
       <LinearGradient
         colors={["#0F172A", "#1E293B"]}
         style={StyleSheet.absoluteFill}
       />
 
-  // Contenido superior con descripcion y herramientas
+ {/* Contenido superior con descripcion y herramientas */}
       <View style={styles.topContent}>
         <Text style={styles.description}>
-          Conversational AI agents with ElevenLabs and Expo React
+          Agente de IA conversacional con ElevenLabs y Expo React
           Native.
         </Text>
 
-        // Lista de herramientas disponibles para el agente
+        {/*Lista de herramientas disponibles para el agente */}
         <View style={styles.toolsList}>
           <Text style={styles.toolsTitle}>Herramientas disponibles:</Text>
           <View style={styles.toolItem}>
@@ -67,7 +67,7 @@ export default function App() {
           </View>
         </View>
         <View style={styles.domComponentContainer}>
-// Componente que maneja la comunicacion con el agente
+ {/* Componente que maneja la comunicacion con el agente */}
           <ConvAiDOMComponent
             dom={{ style: styles.domComponent }}
            // platform={Platform.OS}
@@ -81,7 +81,7 @@ export default function App() {
         </View>
       </View>
 
-// Zona de chat donde se muestran los mensajes
+ {/* Zona de chat donde se muestran los mensajes */}
       <View style={styles.chatContainer}>
         <ScrollView
           style={styles.messagesList}
@@ -93,7 +93,7 @@ export default function App() {
           ))}
         </ScrollView>
       </View>
-// Barra de estado con texto claro
+ {/* Barra de estado con texto claro */}
       <StatusBar style="light" />
     </SafeAreaView>
   );

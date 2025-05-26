@@ -5,7 +5,7 @@ import { Mic } from "lucide-react-native";
 import { useCallback } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import type { Message } from "../components/ChatMessage";
-import tools from "../utils/tools";
+//import tools from "../utils/tools";
 
 async function requestMicrophonePermission() {
   const { status } = await Audio.requestPermissionsAsync();
@@ -51,16 +51,16 @@ function getSessionId() {
 
 export default function ConvAiDOMComponent({
   platform,
-  get_battery_level,
-  change_brightness,
-  flash_screen,
+  //get_battery_level,
+  //change_brightness,
+  //flash_screen,
   onMessage,
 }: {
   dom?: import("expo/dom").DOMProps;
-  platform: string;
-  get_battery_level: typeof tools.get_battery_level;
-  change_brightness: typeof tools.change_brightness;
-  flash_screen: typeof tools.flash_screen;
+  //platform: string;
+  //get_battery_level: typeof tools.get_battery_level;
+  //change_brightness: typeof tools.change_brightness;
+  //flash_screen: typeof tools.flash_screen;
   onMessage: (message: Message) => void;
 }) {
   const conversation = useConversation({
@@ -84,7 +84,7 @@ export default function ConvAiDOMComponent({
       await conversation.startSession({
         agentId: "vNm0UM4dtpKQBTwkamky",
         dynamicVariables: {
-          platform,
+          //platform,
           fecha_actual: formattedDate,
           dia_semana: dayOfWeek,
           sessionId: getSessionId(), // This is the session ID
@@ -93,9 +93,9 @@ export default function ConvAiDOMComponent({
           logMessage: async ({ message }) => {
             console.log(message);
           },
-          get_battery_level,
-          change_brightness,
-          flash_screen,
+          //get_battery_level,
+          //change_brightness,
+          //flash_screen,
         },
       });
     } catch (error) {

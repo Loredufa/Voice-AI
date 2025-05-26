@@ -1,3 +1,4 @@
+// Componente para gestionar la comunicacion con ElevenLabs
 "use dom";
 import { useConversation } from "@11labs/react";
 import { Audio } from "expo-av";
@@ -7,6 +8,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 import type { Message } from "../components/ChatMessage";
 //import tools from "../utils/tools";
 
+// Solicita permiso para usar el microfono
 async function requestMicrophonePermission() {
   const { status } = await Audio.requestPermissionsAsync();
   if (status !== "granted") {
@@ -16,6 +18,7 @@ async function requestMicrophonePermission() {
   return true;
 }
 
+// Obtiene la fecha actual formateada y el dia de la semana
 function getFormattedDate() {
   const date = new Date();
   const dayNames = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
@@ -31,6 +34,7 @@ function getFormattedDate() {
   };
 }
 
+// Genera un identificador unico para la sesion
 function generateSessionId() {
   return 'xxxxxxx-xxxx-4xxx-yxxx-xxxxxxxx'.replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0,
@@ -39,8 +43,10 @@ function generateSessionId() {
   });
 }
 
+// Almacena el identificador de la sesion actual
 let sessionId: string | null = null;
 
+// Devuelve el identificador de sesion, generandolo si es necesario
 function getSessionId() {
   if (!sessionId) {
     sessionId = generateSessionId();
@@ -63,6 +69,7 @@ export default function ConvAiDOMComponent({
   //flash_screen: typeof tools.flash_screen;
   onMessage: (message: Message) => void;
 }) {
+// Hook que se conecta con el servicio de conversacion
   const conversation = useConversation({
     onConnect: () => console.log("Connected"),
     onDisconnect: () => console.log("Disconnected"),
@@ -71,6 +78,7 @@ export default function ConvAiDOMComponent({
     },
     onError: error => console.error("Error:", error),
   });
+// Funcion que inicia la conversacion con el agente
   const startConversation = useCallback(async () => {
     try {
       const hasPermission = await requestMicrophonePermission();
@@ -103,11 +111,13 @@ export default function ConvAiDOMComponent({
     }
   }, [conversation]);
   
+// Finaliza la conversacion en curso
   const stopConversation = useCallback(async () => {
     await conversation.endSession();
   }, [conversation]);
 
   return (
+// Boton para iniciar o detener la conversacion
     <Pressable
       style={[
         styles.callButton,
@@ -136,6 +146,7 @@ export default function ConvAiDOMComponent({
   );
 }
 
+// Estilos del boton de microfono
 const styles = StyleSheet.create({
   callButton: {
     width: 120,

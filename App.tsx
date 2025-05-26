@@ -1,3 +1,4 @@
+// Componente principal que muestra la interfaz de usuario y gestiona la conversacion
 import {
   Inter_400Regular,
   Inter_700Bold,
@@ -14,7 +15,8 @@ import tools from "./utils/tools";
 
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
-
+  // Estado que almacena el historial de mensajes
+  // Solicitamos permiso para usar el microfono al iniciar la app
   useEffect(() => {
     Audio.requestPermissionsAsync().then(({ status }) => {
       if (status !== "granted") {
@@ -23,7 +25,8 @@ export default function App() {
     });
   }, []);
 
-  const [fontsLoaded] = useFonts({
+  // Cargamos las fuentes de Google antes de mostrar la interfaz
+    const [fontsLoaded] = useFonts({
     "Inter-Regular": Inter_400Regular,
     "Inter-Bold": Inter_700Bold,
   });
@@ -32,19 +35,23 @@ export default function App() {
     return null;
   }
 
+  // Renderizado de la interfaz principal
   return (
     <SafeAreaView style={styles.container}>
+      // Fondo con degradado
       <LinearGradient
         colors={["#0F172A", "#1E293B"]}
         style={StyleSheet.absoluteFill}
       />
 
+      // Contenido superior con descripcion y herramientas
       <View style={styles.topContent}>
         <Text style={styles.description}>
           Cross-platform conversational AI agents with ElevenLabs and Expo React
           Native.
         </Text>
 
+        // Lista de herramientas disponibles para el agente
         <View style={styles.toolsList}>
           <Text style={styles.toolsTitle}>Available Client Tools:</Text>
           <View style={styles.toolItem}>
@@ -71,6 +78,7 @@ export default function App() {
           </View>
         </View>
         <View style={styles.domComponentContainer}>
+// Componente que maneja la comunicacion con el agente
           <ConvAiDOMComponent
             dom={{ style: styles.domComponent }}
             platform={Platform.OS}
@@ -84,6 +92,7 @@ export default function App() {
         </View>
       </View>
 
+// Zona de chat donde se muestran los mensajes
       <View style={styles.chatContainer}>
         <ScrollView
           style={styles.messagesList}
@@ -95,11 +104,13 @@ export default function App() {
           ))}
         </ScrollView>
       </View>
+// Barra de estado con texto claro
       <StatusBar style="light" />
     </SafeAreaView>
   );
 }
 
+// Estilos de la interfaz
 const styles = StyleSheet.create({
   container: {
     flex: 1,

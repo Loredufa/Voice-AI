@@ -1,6 +1,8 @@
+// Herramientas que pueden invocar los agentes de IA
 import * as Battery from "expo-battery";
 import * as Brightness from "expo-brightness";
 
+// Obtiene el nivel de bateria del dispositivo
 const get_battery_level = async () => {
   const batteryLevel = await Battery.getBatteryLevelAsync();
   console.log("batteryLevel", batteryLevel);
@@ -9,6 +11,7 @@ const get_battery_level = async () => {
   }
   return batteryLevel;
 };
+// Cambia el brillo de la pantalla
 
 const change_brightness = ({ brightness }: { brightness: number }) => {
   console.log("change_brightness", brightness);
@@ -16,6 +19,7 @@ const change_brightness = ({ brightness }: { brightness: number }) => {
   return brightness;
 };
 
+// Hace parpadear la pantalla brevemente
 const flash_screen = () => {
   Brightness.setSystemBrightnessAsync(1);
   setTimeout(() => {
@@ -24,10 +28,12 @@ const flash_screen = () => {
   return "Successfully flashed the screen.";
 };
 
+// Objeto que agrupa las herramientas expuestas
 const tools = {
   get_battery_level,
   change_brightness,
   flash_screen,
 };
 
+// Exportamos las herramientas para su uso en la app
 export default tools;

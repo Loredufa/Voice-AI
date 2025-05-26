@@ -1,17 +1,22 @@
+// Componente que representa un mensaje del chat
 import { View, Text, StyleSheet } from "react-native";
 
 export type Message = {
-  source: string;
+// Definicion del tipo de mensaje recibido o enviado
+    source: string;
   message: string;
 };
 
+// Propiedades que recibe el componente
 type Props = {
   message: Message;
 };
 
 export function ChatMessage({ message }: Props) {
-  const isAI = message.source === "ai";
+// Determinamos si el mensaje proviene de la IA
+    const isAI = message.source === "ai";
 
+// Mostramos el mensaje con estilos segun su origen
   return (
     <View
       style={[
@@ -30,6 +35,7 @@ export function ChatMessage({ message }: Props) {
   );
 }
 
+// Estilos para los diferentes tipos de mensajes
 const styles = StyleSheet.create({
   messageContainer: {
     flexDirection: "row",

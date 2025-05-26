@@ -2,8 +2,8 @@
 import { useConversation } from "@11labs/react";
 import { Audio } from "expo-av";
 import { Mic } from "lucide-react-native";
-import { useCallback } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { useCallback, useEffect, useRef } from "react";
+import { Animated, Pressable, StyleSheet, View } from "react-native";
 import type { Message } from "../components/ChatMessage";
 import tools from "../utils/tools";
 
@@ -71,6 +71,34 @@ export default function ConvAiDOMComponent({
     },
     onError: error => console.error("Error:", error),
   });
+
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    let anim: Animated.CompositeAnimation | undefined;
+    if (conversation.status === "connected") {
+      anim = Animated.loop(
+        Animated.sequence([
+          Animated.timing(scaleAnim, {
+            toValue: 1.2,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+          Animated.timing(scaleAnim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+        ])
+      );
+      anim.start();
+    } else {
+      scaleAnim.setValue(1);
+    }
+    return () => {
+      anim?.stop();
+    };
+  }, [conversation.status, scaleAnim]);
   const startConversation = useCallback(async () => {
     try {
       const hasPermission = await requestMicrophonePermission();
@@ -119,10 +147,11 @@ export default function ConvAiDOMComponent({
           : stopConversation
       }
     >
-      <View
+      <Animated.View
         style={[
           styles.buttonInner,
           conversation.status === "connected" && styles.buttonInnerActive,
+          { transform: [{ scale: scaleAnim }] },
         ]}
       >
         <Mic
@@ -131,7 +160,7 @@ export default function ConvAiDOMComponent({
           strokeWidth={1.5}
           style={styles.buttonIcon}
         />
-      </View>
+      </Animated.View>
     </Pressable>
   );
 }

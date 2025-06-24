@@ -6,6 +6,7 @@ import { Mic } from "lucide-react-native";
 import { useCallback } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import type { Message } from "../components/ChatMessage";
+import { AGENT_ID, ELEVENLABS_API_KEY } from "../utils/env";
 //import tools from "../utils/tools";
 
 // Solicita permiso para usar el microfono
@@ -71,6 +72,7 @@ export default function ConvAiDOMComponent({
 }) {
 // Hook que se conecta con el servicio de conversacion
   const conversation = useConversation({
+    apiKey: ELEVENLABS_API_KEY,
     onConnect: () => console.log("Connected"),
     onDisconnect: () => console.log("Disconnected"),
     onMessage: message => {
@@ -90,7 +92,7 @@ export default function ConvAiDOMComponent({
       const { formattedDate, dayOfWeek } = getFormattedDate();
   
       await conversation.startSession({
-        agentId: "vNm0UM4dtpKQBTwkamky",
+        agentId: AGENT_ID,
         dynamicVariables: {
           //platform,
           fecha_actual: formattedDate,

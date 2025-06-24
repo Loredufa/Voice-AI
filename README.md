@@ -6,6 +6,16 @@
 npm install
 ```
 
+## Setup environment variables
+
+Copy `.env.example` to `.env` and replace the placeholders with your
+ElevenLabs credentials:
+
+```bash
+cp .env.example .env
+# then edit .env
+```
+
 ## Run the app
 
 1. `npx expo prebuild --clean`
